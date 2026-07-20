@@ -3,6 +3,95 @@ html{
     scroll-behavior: smooth;
 }
 
+ /*  cards animation frontend */
+
+/* Custom Animated Conic Gradient Border for Doctor Card */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* 1. Base Setup for the animated border structure */
+.animate-conic-card {
+  position: relative;
+  /* Extra safety to hide the rotating background overflow */
+  overflow: hidden; 
+  background: transparent !important; /* Managed by pseudo-elements */
+}
+
+/* 2. The Moving Conic Gradient Layer */
+.animate-conic-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  
+  /* FIX 1: Changed "from 0deg" to "from var(--angle)" so the keyframe rotation actually applies */
+  background: conic-gradient(
+    from var(--angle),
+    /* 1. BLUE (Takes up 100 degrees of space) */
+    #055fde 0deg,
+    #9332f5 100deg,
+    
+    /* 2. DISTANCE (A 80-degree empty gap) */
+    transparent 100deg,
+    transparent 180deg,
+    
+    /* 3. PURPLE (Takes up the exact same 100 degrees of space) */
+    #f373ff 180deg,
+    #4414a4 280deg,
+    
+    /* 4. DISTANCE (Another 80-degree empty gap to finish the circle) */
+    transparent 280deg,
+    transparent 360deg
+  ) !important;
+  
+  animation: spinBorder 6s linear infinite;
+  z-index: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* 3. The inner card background mask (Keeps your original background color) */
+.animate-conic-card::after {
+  content: '';
+  position: absolute;
+  
+  /* FIX 2: Decreased inset from 3px to 1.5px to make the border line noticeably thinner */
+  inset: 1.5px; 
+  background: rgba(233, 217, 250, 1);
+  
+  /* FIX 3: Adjusted border-radius calculation to match the new 1.5px thickness perfectly */
+  border-radius: calc(1.5rem - 1.5px); 
+  z-index: 0;
+}
+
+/* 4. Push all actual card contents to sit perfectly above the backgrounds */
+.animate-conic-card > * {
+  position: relative;
+  z-index: 10;
+}
+
+/* 5. HOVER BEHAVIORS: Stops/Hides the gradient, turns on your shadow smoothly */
+.animate-conic-card:hover::before {
+  animation-play-state: paused;
+  opacity: 0; /* Smoothly fades out the conic gradient */
+}
+
+/* Keyframes for the ultra-smooth border rotation loop */
+@keyframes spinBorder {
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
+  }
+}
+
+/*  cards animation end here frontend*/
 
 
 
