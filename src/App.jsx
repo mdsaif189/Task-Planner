@@ -23,7 +23,8 @@ export default function App() {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState(new Date().toLocaleTimeString());
-  const { tasks, addTask,deleteTask,updateStatus,deleteAllTask } = usePlanner();
+  const { tasks, addTask, deleteTask, updateStatus, deleteAllTask } =
+    usePlanner();
   const highestTask = tasks.filter((item) => item.priority === "highest");
   const mediumTask = tasks.filter((item) => item.priority === "medium");
   const lowestTask = tasks.filter((item) => item.priority === "lowest");
@@ -31,7 +32,7 @@ export default function App() {
   const createTask = (value) => {
     value.status = "pending";
     value.id = Date.now();
-    value.createdAt=new Date()
+    value.createdAt = new Date();
     addTask(value);
     handleClose();
   };
@@ -64,14 +65,21 @@ export default function App() {
             >
               PL
             </button>
-            <h1 className="text-2xl font-bold ml-px
+            <h1
+              className="text-2xl font-bold ml-px
            bg-[conic-gradient(from_5deg,_#a1c4fd_0%_50%,_#c2e9fb_50%_100%)] bg-clip-text text-transparent"
-            >anner</h1>
+            >
+              anner
+            </h1>
           </div>
 
           <div className="flex gap-5 items-center ">
-            <h1 className="text-2xl font-bold lg:block hidden
-             bg-[conic-gradient(from_66deg,_#a1c4fd_0%_50%,_#c2e9fb_50%_100%)] bg-clip-text text-transparent">{time}</h1>
+            <h1
+              className="text-2xl font-bold lg:block hidden
+             bg-[conic-gradient(from_66deg,_#a1c4fd_0%_50%,_#c2e9fb_50%_100%)] bg-clip-text text-transparent"
+            >
+              {time}
+            </h1>
             <DatePicker
               size=""
               className=" !py-1.5 hover:cursor-pointer hover:!bg-green-50"
@@ -88,18 +96,20 @@ export default function App() {
               Add Task
             </button>
 
-              <Popconfirm title="Do you really want to delete your all tasks" onConfirm={()=>deleteAllTask()}>
-                 <button
-            
-              className=" flex gap-1 px-3 py-2 text-sm  rounded-xl items-center text-white 
+            <Popconfirm
+              title="Do you really want to delete your all tasks"
+              onConfirm={() => deleteAllTask()}
+            >
+              <button
+                className=" flex gap-1 px-3 py-2 text-sm  rounded-xl items-center text-white 
               focus:shadow-2xl hover:scale-103 transition-transform duration-300 cursor-pointer 
             bg-red-500
               hover:bg-red-600 hover:text-black"
-            >
-              <Trash className="w-4 h-4" />
-              Delete All task
-            </button>
-              </Popconfirm>
+              >
+                <Trash className="w-4 h-4" />
+                Delete All task
+              </button>
+            </Popconfirm>
           </div>
         </nav>
 
@@ -109,23 +119,23 @@ export default function App() {
               text="Highest"
               className=" font-semibold z-[3000] bg-[linear-gradient(176deg,_#fccb90,_#d57eeb,_hsl(3.1,_71.53321178759037%,_51.554162202642544%))]"
             />
-            <div className="bg-gray-50  rounded-2xl h-full overflow-auto min-h-0  p-6 ">
+            <div className="bg-gray-50 animate-conic-card  rounded-3xl h-full overflow-auto min-h-0  p-6 ">
               <div className="flex flex-col gap-8 mt-6">
                 {highestTask.length === 0 && (
                   <>
-                   <div className=" mt-[80px] space-y-7">
-                     <Empty description="Add your task here !" />
-                    <button
-                      onClick={() => setOpen(true)}
-                      className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
+                    <div className=" mt-[80px] space-y-7">
+                      <Empty description="Add your task here !" />
+                      <button
+                        onClick={() => setOpen(true)}
+                        className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
               focus:shadow-2xl hover:scale-103 transition-transform duration-300 cursor-pointer 
                bg-[linear-gradient(45deg,_#00c6ff,_#0072ff,_hsl(228.4,_78.25720028383995%,_41.079564566897226%))] 
               hover:bg-[linear-gradient(239deg,_#fbc2eb,_#a6c1ee,_hsl(172.2,_83.62332220715885%,_59.76924544777433%))] hover:text-black"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Task
-                    </button>
-                   </div>
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Task
+                      </button>
+                    </div>
                   </>
                 )}
                 {highestTask.map((item, index) => (
@@ -144,11 +154,19 @@ export default function App() {
                     <div className="mt-4 flex justify-between item-center ">
                       <div className=" flex gap-2">
                         <Tag className="capatalize">{item.status}</Tag>
-                        <Tag className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 transition-transform duration-300 " onClick={()=>deleteTask(item.id)}>
+                        <Tag
+                          className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 transition-transform duration-300 "
+                          onClick={() => deleteTask(item.id)}
+                        >
                           Delete
                         </Tag>
                       </div>
-                      <Select className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50" size="small" placeholder="change status" onChange={(status)=>updateStatus(item.id,status)} >
+                      <Select
+                        className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50"
+                        size="small"
+                        placeholder="change status"
+                        onChange={(status) => updateStatus(item.id, status)}
+                      >
                         <Select.Option value="pending">Pending</Select.Option>
                         <Select.Option value="completed">
                           completed
@@ -158,7 +176,9 @@ export default function App() {
                         </Select.Option>
                       </Select>
                     </div>
-                    <label className="text-slate-400 text-xs flex mt-3" >{moment(item.createdAt).format("DD MMM YYYY hh:mm A")}</label>
+                    <label className="text-slate-400 text-xs flex mt-3">
+                      {moment(item.createdAt).format("DD MMM YYYY hh:mm A")}
+                    </label>
                   </Card>
                 ))}
               </div>
@@ -170,23 +190,23 @@ export default function App() {
               text="Medium"
               className=" font-semibold z-[3000] bg-[linear-gradient(337deg,_#30cfd0,_#330867,_hsl(291.5,_83.25553236418475%,_46.91286645479472%))]"
             />
-            <div className="bg-gray-50  rounded-2xl h-full overflow-auto min-h-0  p-6 ">
+            <div className="bg-gray-50 animate-conic-card  rounded-3xl h-full overflow-auto min-h-0  p-6 ">
               <div className="flex flex-col gap-8 mt-6">
                 {mediumTask.length === 0 && (
                   <>
-                   <div className=" mt-[80px] space-y-7">
-                     <Empty description="Add your task here !" />
-                    <button
-                      onClick={() => setOpen(true)}
-                      className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
+                    <div className=" mt-[80px] space-y-7">
+                      <Empty description="Add your task here !" />
+                      <button
+                        onClick={() => setOpen(true)}
+                        className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
               focus:shadow-2xl hover:scale-103 transition-transform duration-300 cursor-pointer 
                bg-[linear-gradient(45deg,_#00c6ff,_#0072ff,_hsl(228.4,_78.25720028383995%,_41.079564566897226%))] 
               hover:bg-[linear-gradient(239deg,_#fbc2eb,_#a6c1ee,_hsl(172.2,_83.62332220715885%,_59.76924544777433%))] hover:text-black"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Task
-                    </button>
-                   </div>
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Task
+                      </button>
+                    </div>
                   </>
                 )}
                 {mediumTask.map((item, index) => (
@@ -205,12 +225,19 @@ export default function App() {
                     <div className="mt-4 flex justify-between item-center ">
                       <div className=" flex gap-2">
                         <Tag className="capatalize">{item.status}</Tag>
-                        <Tag className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 " onClick={()=>deleteTask(item.id)}>
-                          
+                        <Tag
+                          className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 "
+                          onClick={() => deleteTask(item.id)}
+                        >
                           Delete
                         </Tag>
                       </div>
-                      <Select className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50" size="small" placeholder="change status" onChange={(status)=>updateStatus(item.id,status)}>
+                      <Select
+                        className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50"
+                        size="small"
+                        placeholder="change status"
+                        onChange={(status) => updateStatus(item.id, status)}
+                      >
                         <Select.Option value="pending">Pending</Select.Option>
                         <Select.Option value="completed">
                           completed
@@ -220,7 +247,9 @@ export default function App() {
                         </Select.Option>
                       </Select>
                     </div>
-                       <label className="text-slate-400 text-xs flex mt-3" >{moment(item.createdAt).format("DD MMM YYYY hh:mm A")}</label>
+                    <label className="text-slate-400 text-xs flex mt-3">
+                      {moment(item.createdAt).format("DD MMM YYYY hh:mm A")}
+                    </label>
                   </Card>
                 ))}
               </div>
@@ -232,23 +261,23 @@ export default function App() {
               text="Lowest"
               className=" font-semibold z-[3000] bg-[linear-gradient(2deg,_#00c6ff,_#0072ff)]"
             />
-            <div className="bg-gray-50 rounded-2xl h-full overflow-auto min-h-0  p-6 ">
+            <div className="bg-gray-50 rounded-3xl animate-conic-card h-full overflow-auto min-h-0  p-6 ">
               <div className="flex flex-col gap-8 mt-6">
                 {lowestTask.length === 0 && (
                   <>
-                   <div className=" mt-[80px] space-y-7">
-                     <Empty description=" Add your task here !" />
-                    <button
-                      onClick={() => setOpen(true)}
-                      className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
+                    <div className=" mt-[80px] space-y-7">
+                      <Empty description=" Add your task here !" />
+                      <button
+                        onClick={() => setOpen(true)}
+                        className=" w-fit mx-auto flex  px-3 py-2 text-sm  rounded-xl items-center text-white 
               focus:shadow-2xl hover:scale-103 transition-transform duration-300 cursor-pointer 
                bg-[linear-gradient(45deg,_#00c6ff,_#0072ff,_hsl(228.4,_78.25720028383995%,_41.079564566897226%))] 
               hover:bg-[linear-gradient(239deg,_#fbc2eb,_#a6c1ee,_hsl(172.2,_83.62332220715885%,_59.76924544777433%))] hover:text-black"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Task
-                    </button>
-                   </div>
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Task
+                      </button>
+                    </div>
                   </>
                 )}
                 {lowestTask.map((item, index) => (
@@ -267,11 +296,19 @@ export default function App() {
                     <div className="mt-4 flex justify-between item-center ">
                       <div className=" flex gap-2">
                         <Tag className="capatalize">{item.status}</Tag>
-                        <Tag className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 " onClick={()=>deleteTask(item.id)}>
+                        <Tag
+                          className="!bg-rose-600 !border-rose-600 !text-white hover:scale-101 bg-rose-700 border-rose-800 "
+                          onClick={() => deleteTask(item.id)}
+                        >
                           Delete
                         </Tag>
                       </div>
-                      <Select className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50" size="small" placeholder="change status" onChange={(status)=>updateStatus(item.id,status)}>
+                      <Select
+                        className="hover:scale-102 transition-transform duration-300  hover:!bg-green-50"
+                        size="small"
+                        placeholder="change status"
+                        onChange={(status) => updateStatus(item.id, status)}
+                      >
                         <Select.Option value="pending">Pending</Select.Option>
                         <Select.Option value="completed">
                           completed
@@ -281,7 +318,9 @@ export default function App() {
                         </Select.Option>
                       </Select>
                     </div>
-                      <label className="text-slate-400 text-xs flex mt-3" >{moment(item.createdAt).format("DD MMM YYYY hh:mm A")}</label>
+                    <label className="text-slate-400 text-xs flex mt-3">
+                      {moment(item.createdAt).format("DD MMM YYYY hh:mm A")}
+                    </label>
                   </Card>
                 ))}
               </div>
